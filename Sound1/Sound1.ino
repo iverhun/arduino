@@ -1,3 +1,6 @@
+#include <Notes.h>
+#include <Pitches.h>
+
 /*
   Melody
 
@@ -15,8 +18,6 @@ This example code is in the public domain.
  http://www.arduino.cc/en/Tutorial/Tone
 
  */
-#include "pitches.h"
-#include "notes.h"
 
 // notes in the melody:
 int melody[] = {
@@ -37,4 +38,5 @@ void setup() {
 
 void loop() {
   // no need to repeat the melody.
+  //notes.playNotes(melody, noteDurations);
 }
