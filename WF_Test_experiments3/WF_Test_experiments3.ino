@@ -1,4 +1,3 @@
-// #include <Notes.h>
 #include <Pitches.h>
 
 /*
@@ -9,13 +8,10 @@
 
 */
 
-// # include "BurreMelody.h"
-
-notes notes;
-
 volatile unsigned long  pulses_count;  // Measures flow meter pulses_count
 unsigned int  l_min;          // Calculated litres/hour                      
 unsigned char flowmeter = 2;  // Flow Meter Pin number
+unsigned char buzzer = 13;
 
 unsigned long previousTime;
 unsigned long currentTime;
@@ -41,6 +37,8 @@ void flow ()                  // Interrupt function
 void setup()
 { 
    pinMode(flowmeter, INPUT);
+   pinMode(buzzer, OUTPUT);
+
    Serial.begin(9600); 
    attachInterrupt(digitalPinToInterrupt(2), flow, RISING); // Setup Interrupt 
                                      // see http://arduino.cc/en/Reference/attachInterrupt
@@ -81,14 +79,11 @@ void loop ()
 
       noflow_sec = (millis() - last_pulse_time)/1000;
       if (mililitres > 100 && millilitres_per_sec > 0) {
-          // notes.playNotes(melody, noteDurations);
-          // tone(8, 440, 200);
-          // TODO: turn on pin 13
+          digitalWrite(buzzer, HIGH);
       } 
 
       if (noflow_sec > 5) {
-        noTone(8);
-        // TODO: turn off pin 13
+        digitalWrite(buzzer, LOW);
 
         // reset counters
         pulses_count = 0;
